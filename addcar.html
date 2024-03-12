@@ -70,8 +70,6 @@
             padding: 20px;
         }
 
-       
-
     </style>
 </head>
 <body>
@@ -81,7 +79,6 @@
             <li><a href="admindashboard.php">View Registered Users</a></li>
             <li><a href="addcar.html">Add Car</a></li>
             <li><a href="manage_car.php">Manage Car</a></li>
-           
         </ul>
     </div>
 
@@ -93,36 +90,110 @@
                 <!-- Form to add a new car -->
                 <form action="addcar.php" method="POST" enctype="multipart/form-data">
                     <!-- Input fields for car details -->
-                    <label for="code">Code:</label>
-                    <input type="text" id="code" name="code" required><br><br>
+                    
                 
                     <label for="brand">Brand Name:</label>
-                    <input type="text" id="brand" name="brand" required><br><br>
+                    <select id="brand" name="brand" required>
+                        <option value="Toyota">Toyota</option>
+                        <option value="Honda">Honda</option>
+                        <option value="Ford">Ford</option>
+                        <!-- Add more options as needed -->
+                    </select><br><br>
                 
                     <label for="model">Model Name:</label>
-                    <input type="text" id="model" name="model" required><br><br>
+                    <select id="model" name="model" required>
+                        <!-- Model options will be added dynamically via JavaScript -->
+                    </select><br><br>
                 
                     <label for="color">Color:</label>
-                    <input type="text" id="color" name="color" required><br><br>
+                    <select id="color" name="color" required>
+                        <option value="White">White</option>
+                        <option value="Red">Red</option>
+                        <option value="Black">Black</option>
+                        <!-- Add more options as needed -->
+                    </select><br><br>
+                    
                 
                     <label for="reg_no">Registration Number:</label>
-                    <input type="text" id="reg_no" name="reg_no" required><br><br>
+                    <input type="text" id="reg_no" name="reg_no" placeholder="XX00 XX 0000" required><br><br>
+                    
                 
                     <label for="fuel_type">Fuel Type:</label>
-                    <input type="text" id="fuel_type" name="fuel_type" required><br><br>
+                    <select id="fuel_type" name="fuel_type" required>
+                        <option value="Petrol">Petrol</option>
+                        <option value="Diesel">Diesel</option>
+                        
+                        <!-- Add more options as needed -->
+                    </select><br><br>
                 
                     <label for="seating_capacity">Seating Capacity:</label>
-                    <input type="number" id="seating_capacity" name="seating_capacity" required><br><br>
+                    <select id="seating_capacity" name="seating_capacity" required>
+                        <option value="5">5</option>
+                        <option value="7">7</option>
+                        
+                        <!-- Add more options as needed -->
+                    </select><br><br>
                 
-                    <label for="image">Car Image:</label>
+                    <label for="image">Car Image:(Max Allowed size:2MB)</label>
                     <input type="file" id="image" name="image" accept="image/*" required><br><br>
                 
                     <button type="submit" name="submit">Add Car</button>
                 </form>
-                
             </section>
             <!-- Other sections as needed -->
         </div>
     </div>
+
+    <script>
+        // JavaScript to dynamically populate model options based on the selected brand
+        document.getElementById('brand').addEventListener('change', function() {
+            var brand = this.value;
+            var modelSelect = document.getElementById('model');
+            // Clear existing options
+            modelSelect.innerHTML = '';
+            // Add options based on the selected brand
+            switch(brand) {
+                case 'Toyota':
+                    addOptions(modelSelect, ['Corolla', 'Camry', 'Rav4']);
+                    break;
+                case 'Honda':
+                    addOptions(modelSelect, ['Civic', 'Accord', 'CR-V']);
+                    break;
+                case 'Ford':
+                    addOptions(modelSelect, ['Fusion', 'Escape', 'Explorer']);
+                    break;
+                default:
+                    addOptions(modelSelect, ['Select Brand First']);
+            }
+        });
+
+        // Function to add options to a select element
+        function addOptions(selectElement, options) {
+            options.forEach(function(option) {
+                var optionElement = document.createElement('option');
+                optionElement.textContent = option;
+                optionElement.value = option;
+                selectElement.appendChild(optionElement);
+            });
+        }
+
+        // JavaScript to set the registration number field format
+        document.getElementById('reg_no').addEventListener('input', function() {
+            var regNoInput = this;
+            var regNo = regNoInput.value.trim().toUpperCase(); // Convert input to uppercase
+            
+            // Regular expression pattern for registration number validation
+            var regExPattern = /^[A-Z]{2}\d{2}\s[A-Z]{2}\s\d{4}$/;
+            
+            // Check if the input doesn't match the pattern
+            if (!regExPattern.test(regNo)) {
+                // If the input doesn't match the pattern, display a warning
+                regNoInput.setCustomValidity("Please enter a valid registration number in the format: XX00 XX 0000");
+            } else {
+                // If the input matches the pattern, reset the warning
+                regNoInput.setCustomValidity("");
+            }
+        });
+    </script>
 </body>
 </html>

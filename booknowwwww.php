@@ -107,7 +107,9 @@
                 <div class="car-details">
                     <h2><?php echo $row["brandname"] . " " . $row["modelname"]; ?></h2>
                     <!-- Display other car details -->
-                    <p><strong>Car Code:</strong> <?php echo $row["carcode"]; ?></p>
+                    
+                    <p><strong>Car Code:</strong> <?php echo substr($row["modelname"], 0, 2) . $row["carcode"]; ?></p>
+
                     <p><strong>Color:</strong> <?php echo $row["color"]; ?></p>
                     <p><strong>Registration No:</strong> <?php echo $row["registeration_no"]; ?></p>
                     <p><strong>Fuel Type:</strong> <?php echo $row["fuel_type"]; ?></p>
