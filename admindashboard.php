@@ -5,7 +5,7 @@
     ?>
 <head>
     <meta charset="UTF-8">
-    <title>Admin Dashboard - Car Rental System</title>
+    <title>Admin Dashboard-Car</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -119,7 +119,7 @@
             <th>Phone Number</th>
             <th>License Number</th>
             <th>Address</th>
-            <th>View Details</th> <!-- New column for View Details -->
+            <th>View Details</th> 
         </tr>
     </thead>
     <tbody>
